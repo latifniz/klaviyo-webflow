@@ -1,0 +1,37 @@
+{
+  "name": "klaviyo-webflow-integration",
+  "version": "1.0.0",
+  "description": "A modular, versioned integration between Webflow forms and Klaviyo API",
+  "main": "dist/latest/klaviyo-webflow.min.js",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "http-server -p 8080 --cors -c-1",
+    "test": "jest",
+    "lint": "eslint src/**/*.js"
+  },
+  "keywords": [
+    "klaviyo",
+    "webflow",
+    "integration",
+    "forms",
+    "subscribe"
+  ],
+  "author": "Your Company",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/klaviyo-webflow.git"
+  },
+  "dependencies": {
+    "lucide-react": "^0.488.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.45.0",
+    "http-server": "^14.1.1",
+    "jest": "^29.6.1",
+    "terser": "^5.19.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

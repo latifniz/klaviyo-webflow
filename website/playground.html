@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground | Klaviyo to Webflow Integration</title>
+  <meta name="description" content="Test the Klaviyo to Webflow integration with your own API credentials. Generate custom code for your site.">
+  <link rel="stylesheet" href="public/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3088801953.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <div class="header-content">
+        <a href="index.html" class="logo">
+          <span class="logo-primary">Klaviyo</span><span class="logo-separator">→</span><span class="logo-secondary">Webflow</span>
+        </a>
+        <nav class="main-nav">
+          <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="documentation.html">Documentation</a></li>
+            <li><a href="playground.html" class="active">Playground</a></li>
+          </ul>
+        </nav>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="playground-main">
+    <div class="container">
+      <div class="page-header">
+        <h1 class="page-title">Klaviyo Integration Playground</h1>
+        <p class="page-description">Test the integration with your own Klaviyo account and generate custom code for your Webflow site.</p>
+      </div>
+
+      <div class="playground-container">
+        <div class="playground-config">
+          <div class="config-section">
+            <h2 class="section-title">Configuration</h2>
+            <div class="form-group">
+              <label for="klaviyo-api-key">Klaviyo Public API Key</label>
+              <input type="text" id="klaviyo-api-key" placeholder="pk_..." class="form-control">
+              <small class="form-text">Your Klaviyo Public API Key can be found in your Klaviyo account under Settings > API Keys.</small>
+            </div>
+            <div class="form-group">
+              <label for="klaviyo-list-id">Klaviyo List ID</label>
+              <input type="text" id="klaviyo-list-id" placeholder="ABC123..." class="form-control">
+              <small class="form-text">Your Klaviyo List ID can be found in your Klaviyo account under Lists > [Your List] > Settings.</small>
+            </div>
+            <div class="form-group">
+              <label for="success-message">Success Message (optional)</label>
+              <input type="text" id="success-message" placeholder="Thanks for subscribing!" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="redirect-url">Redirect URL (optional)</label>
+              <input type="url" id="redirect-url" placeholder="https://example.com/thank-you" class="form-control">
+            </div>
+            <div class="form-toggle">
+              <input type="checkbox" id="debug-mode" class="toggle-input">
+              <label for="debug-mode" class="toggle-label">Enable Debug Mode</label>
+            </div>
+            <div class="form-toggle">
+              <input type="checkbox" id="track-events" class="toggle-input" checked>
+              <label for="track-events" class="toggle-label">Track Form Events in Klaviyo</label>
+            </div>
+          </div>
+
+          <div class="config-section">
+            <h2 class="section-title">Field Mapping</h2>
+            <div class="field-mapping-container">
+              <div class="field-mapping-row">
+                <div class="form-group">
+                  <label>Webflow Field Name</label>
+                  <input type="text" class="form-control webflow-field" value="email" readonly>
+                </div>
+                <div class="form-group">
+                  <label>Klaviyo Property</label>
+                  <input type="text" class="form-control klaviyo-field" value="email" readonly>
+                </div>
+                <div class="required-toggle">
+                  <input type="checkbox" id="email-required" class="toggle-input" checked>
+                  <label for="email-required" class="toggle-label">Required</label>
+                </div>
+              </div>
+              <div class="field-mapping-row">
+                <div class="form-group">
+                  <label>Webflow Field Name</label>
+                  <input type="text" class="form-control webflow-field" value="name">
+                </div>
+                <div class="form-group">
+                  <label>Klaviyo Property</label>
+                  <select class="form-control klaviyo-field">
+                    <option value="$first_name">$first_name</option>
+                    <option value="$last_name">$last_name</option>
+                    <option value="name" selected>name</option>
+                  </select>
+                </div>
+                <div class="required-toggle">
+                  <input type="checkbox" id="name-required" class="toggle-input">
+                  <label for="name-required" class="toggle-label">Required</label>
+                </div>
+              </div>
+              <div class="field-mapping-row">
+                <div class="form-group">
+                  <label>Webflow Field Name</label>
+                  <input type="text" class="form-control webflow-field" value="phone">
+                </div>
+                <div class="form-group">
+                  <label>Klaviyo Property</label>
+                  <select class="form-control klaviyo-field">
+                    <option value="$phone_number" selected>$phone_number</option>
+                    <option value="phone">phone</option>
+                  </select>
+                </div>
+                <div class="required-toggle">
+                  <input type="checkbox" id="phone-required" class="toggle-input">
+                  <label for="phone-required" class="toggle-label">Required</label>
+                </div>
+              </div>
+              <button id="add-field" class="btn btn-outline btn-small">
+                <i class="fas fa-plus"></i> Add Custom Field
+              </button>
+            </div>
+          </div>
+
+          <button id="generate-code" class="btn btn-primary">Generate Installation Code</button>
+        </div>
+
+        <div class="playground-preview">
+          <div class="preview-section">
+            <h2 class="section-title">Test the Integration</h2>
+            <div class="test-form-container">
+              <form id="test-form" class="sample-form" data-klaviyo-form>
+                <div class="form-group">
+                  <label for="test-email">Email <span class="required">*</span></label>
+                  <input type="email" id="test-email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                  <label for="test-name">Name</label>
+                  <input type="text" id="test-name" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="test-phone">Phone</label>
+                  <input type="tel" id="test-phone" name="phone" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+              </form>
+              <div id="test-form-result" class="form-result"></div>
+            </div>
+          </div>
+
+          <div class="preview-section">
+            <h2 class="section-title">Installation Code</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span class="code-title">Add to your Webflow site head</span>
+                <button id="copy-installation-code" class="btn btn-text">
+                  <i class="far fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre id="installation-code" class="code-block"><code>&lt;!-- Klaviyo to Webflow Integration --&gt;
+&lt;script src="https://cdn.jsdelivr.net/gh/USERNAME/klaviyo-webflow@latest/dist/klaviyo-webflow.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.addEventListener('DOMContentLoaded', function() {
+    KlaviyoWebflow.init({
+      publicApiKey: 'YOUR_API_KEY',
+      defaultListId: 'YOUR_LIST_ID',
+      debug: false
+    });
+  });
+&lt;/script&gt;</code></pre>
+            </div>
+            <div class="code-container">
+              <div class="code-header">
+                <span class="code-title">Add to your Webflow form</span>
+                <button id="copy-form-code" class="btn btn-text">
+                  <i class="far fa-copy"></i> Copy
+                </button>
+              </div>
+              <pre id="form-code" class="code-block"><code>&lt;!-- Add these attributes to your Webflow form element --&gt;
+data-klaviyo-form
+data-klaviyo-list-id="YOUR_LIST_ID"</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="documentation-link">
+        <p>For complete integration instructions, <a href="documentation.html">see the documentation</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-primary">Klaviyo</span><span class="logo-separator">→</span><span class="logo-secondary">Webflow</span>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h3 class="footer-heading">Navigation</h3>
+            <ul class="footer-nav">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="documentation.html">Documentation</a></li>
+              <li><a href="playground.html">Playground</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Resources</h3>
+            <ul class="footer-nav">
+              <li><a href="https://www.klaviyo.com/help" target="_blank">Klaviyo Help Center</a></li>
+              <li><a href="https://university.webflow.com/" target="_blank">Webflow University</a></li>
+              <li><a href="#" target="_blank">GitHub Repository</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 class="footer-heading">Contact</h3>
+            <ul class="footer-nav">
+              <li><a href="mailto:support@example.com">support@example.com</a></li>
+              <li><a href="https://twitter.com/example" target="_blank">Twitter</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="copyright">© 2023 Klaviyo to Webflow Integration. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+      document.querySelector('.main-nav').classList.toggle('show');
+      this.classList.toggle('active');
+    });
+    
+    // Add Field button functionality
+    document.getElementById('add-field').addEventListener('click', function() {
+      const container = document.querySelector('.field-mapping-container');
+      const newRow = document.createElement('div');
+      newRow.className = 'field-mapping-row';
+      
+      const newRowId = `field-${Date.now()}`;
+      
+      newRow.innerHTML = `
+        <div class="form-group">
+          <label>Webflow Field Name</label>
+          <input type="text" class="form-control webflow-field" placeholder="Enter field name">
+        </div>
+        <div class="form-group">
+          <label>Klaviyo Property</label>
+          <input type="text" class="form-control klaviyo-field" placeholder="Enter Klaviyo property">
+        </div>
+        <div class="required-toggle">
+          <input type="checkbox" id="${newRowId}" class="toggle-input">
+          <label for="${newRowId}" class="toggle-label">Required</label>
+        </div>
+        <button class="remove-field btn-icon"><i class="fas fa-times"></i></button>
+      `;
+      
+      container.insertBefore(newRow, this);
+      
+      // Add event listener to the new remove button
+      newRow.querySelector('.remove-field').addEventListener('click', function() {
+        container.removeChild(newRow);
+      });
+    });
+    
+    // Generate code based on configuration
+    document.getElementById('generate-code').addEventListener('click', function() {
+      const apiKey = document.getElementById('klaviyo-api-key').value || 'YOUR_API_KEY';
+      const listId = document.getElementById('klaviyo-list-id').value || 'YOUR_LIST_ID';
+      const debug = document.getElementById('debug-mode').checked;
+      const trackEvents = document.getElementById('track-events').checked;
+      const successMessage = document.getElementById('success-message').value;
+      const redirectUrl = document.getElementById('redirect-url').value;
+      
+      // Build configuration object
+      let configOptions = `
+    publicApiKey: '${apiKey}',
+    defaultListId: '${listId}',
+    debug: ${debug}`;
+      
+      if (trackEvents) {
+        configOptions += `,
+    trackEvents: true`;
+      }
+      
+      if (successMessage) {
+        configOptions += `,
+    successMessage: '${successMessage}'`;
+      }
+      
+      if (redirectUrl) {
+        configOptions += `,
+    redirect: '${redirectUrl}'`;
+      }
+      
+      // Update installation code
+      const installationCode = `<!-- Klaviyo to Webflow Integration -->
+<script src="https://cdn.jsdelivr.net/gh/USERNAME/klaviyo-webflow@latest/dist/klaviyo-webflow.min.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function() {
+    KlaviyoWebflow.init({${configOptions}
+    });
+  });
+</script>`;
+      
+      document.getElementById('installation-code').textContent = installationCode;
+      
+      // Update form code
+      const formCode = `<!-- Add these attributes to your Webflow form element -->
+data-klaviyo-form
+data-klaviyo-list-id="${listId}"`;
+      
+      document.getElementById('form-code').textContent = formCode;
+      
+      // Apply to test form
+      document.getElementById('test-form').setAttribute('data-klaviyo-list-id', listId);
+    });
+    
+    // Copy functionality
+    document.getElementById('copy-installation-code').addEventListener('click', function() {
+      copyToClipboard('installation-code', this);
+    });
+    
+    document.getElementById('copy-form-code').addEventListener('click', function() {
+      copyToClipboard('form-code', this);
+    });
+    
+    function copyToClipboard(elementId, button) {
+      const text = document.getElementById(elementId).textContent;
+      navigator.clipboard.writeText(text).then(function() {
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(function() {
+          button.innerHTML = originalText;
+        }, 2000);
+      }).catch(function() {
+        alert('Failed to copy text. Please try again.');
+      });
+    }
+    
+    // Handle test form submission
+    document.getElementById('test-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const apiKey = document.getElementById('klaviyo-api-key').value;
+      const listId = document.getElementById('klaviyo-list-id').value;
+      const resultDiv = document.getElementById('test-form-result');
+      
+      // Validation
+      if (!apiKey || apiKey === 'YOUR_API_KEY') {
+        resultDiv.innerHTML = '<div class="error-message">Please enter your Klaviyo API key</div>';
+        return;
+      }
+      
+      if (!listId || listId === 'YOUR_LIST_ID') {
+        resultDiv.innerHTML = '<div class="error-message">Please enter your Klaviyo List ID</div>';
+        return;
+      }
+      
+      // Get form data
+      const email = document.getElementById('test-email').value;
+      const name = document.getElementById('test-name').value;
+      const phone = document.getElementById('test-phone').value;
+      
+      // Show loading state
+      resultDiv.innerHTML = '<div class="info-message">Submitting to Klaviyo...</div>';
+      
+      // Simulate API call
+      setTimeout(function() {
+        resultDiv.innerHTML = '<div class="success-message">Success! Form data would be sent to Klaviyo in a real implementation.</div>';
+        
+        // Show the data that would be sent
+        resultDiv.innerHTML += `
+        <div class="data-preview">
+          <h4>Data that would be sent:</h4>
+          <pre>{
+  "profiles": [{
+    "email": "${email}",
+    ${name ? `"name": "${name}",` : ''}
+    ${phone ? `"phone_number": "${phone}",` : ''}
+    "list_id": "${listId}"
+  }]
+}</pre>
+        </div>`;
+      }, 1500);
+    });
+  </script>
+</body>
+</html> 

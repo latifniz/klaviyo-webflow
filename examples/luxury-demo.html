@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Klaviyo Integration | Luxury Experience</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --tan-light: #f5f0e8;
+      --tan-medium: #e8dcc8;
+      --tan-dark: #c9b18c;
+      --brown: #9b7e5d;
+      --brown-dark: #5e4c39;
+      --gold: #d4af37;
+      --white: #ffffff;
+      --text-dark: #362a1e;
+      --text-light: #f8f6f2;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --glass-shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, var(--tan-light) 0%, var(--tan-medium) 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 30px;
+    }
+    
+    header {
+      padding: 40px 0;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--text-dark);
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .logo span {
+      color: var(--gold);
+    }
+    
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .nav-links li {
+      margin-left: 40px;
+    }
+    
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-size: 14px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 5px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: var(--brown);
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 1px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--brown);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    .hero {
+      padding: 60px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 80vh;
+      position: relative;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--tan-dark) 0%, rgba(201, 177, 140, 0) 70%);
+      top: -10%;
+      right: -10%;
+      z-index: -1;
+      opacity: 0.6;
+    }
+    
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--brown) 0%, rgba(155, 126, 93, 0) 70%);
+      bottom: -5%;
+      left: -5%;
+      z-index: -1;
+      opacity: 0.4;
+    }
+    
+    .hero-content {
+      width: 50%;
+      padding-right: 60px;
+    }
+    
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px;
+      font-weight: 300;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: var(--brown-dark);
+    }
+    
+    .hero-title span {
+      color: var(--gold);
+      font-weight: 500;
+    }
+    
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      margin-bottom: 40px;
+      color: var(--text-dark);
+      opacity: 0.9;
+      max-width: 90%;
+    }
+    
+    .form-container {
+      width: 50%;
+    }
+    
+    .glass-card {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px var(--glass-shadow);
+      padding: 50px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
+      z-index: -1;
+      border-radius: 16px;
+      opacity: 0.7;
+    }
+    
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: var(--brown-dark);
+    }
+    
+    .form-subtitle {
+      font-size: 16px;
+      margin-bottom: 40px;
+      color: var(--text-dark);
+      opacity: 0.9;
+    }
+    
+    .form-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--brown-dark);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 14px 20px;
+      border: 1px solid var(--tan-dark);
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.5);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--brown);
+      background-color: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 0 3px rgba(155, 126, 93, 0.2);
+    }
+    
+    .form-input::placeholder {
+      color: rgba(54, 42, 30, 0.5);
+    }
+    
+    .btn {
+      display: inline-block;
+      background-color: var(--brown);
+      color: var(--white);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+    }
+    
+    .btn:hover {
+      background-color: var(--brown-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(155, 126, 93, 0.3);
+    }
+    
+    .success-message {
+      display: none;
+      background-color: rgba(244, 240, 234, 0.8);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    
+    .success-message h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--brown-dark);
+      margin-bottom: 10px;
+    }
+    
+    .success-message p {
+      color: var(--text-dark);
+      font-size: 16px;
+    }
+    
+    .error-message {
+      display: none;
+      background-color: rgba(244, 225, 225, 0.8);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    
+    .features {
+      padding: 100px 0;
+      position: relative;
+    }
+    
+    .features-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 60px;
+      color: var(--brown-dark);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    
+    .feature-item {
+      background-color: rgba(255, 255, 255, 0.6);
+      border-radius: 12px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(155, 126, 93, 0.1);
+    }
+    
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 20px;
+      background-color: var(--tan-medium);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--brown-dark);
+    }
+    
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--brown-dark);
+    }
+    
+    .feature-text {
+      font-size: 15px;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    
+    footer {
+      background-color: var(--brown-dark);
+      color: var(--text-light);
+      padding: 60px 0;
+      margin-top: 100px;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      color: var(--tan-light);
+      margin-bottom: 20px;
+      display: inline-block;
+    }
+    
+    .footer-logo span {
+      color: var(--gold);
+    }
+    
+    .footer-text {
+      font-size: 14px;
+      max-width: 300px;
+      opacity: 0.7;
+      line-height: 1.8;
+    }
+    
+    .footer-links-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: var(--tan-light);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: var(--tan-light);
+      text-decoration: none;
+      font-size: 14px;
+      opacity: 0.7;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      opacity: 1;
+      color: var(--gold);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 50px;
+      font-size: 12px;
+      opacity: 0.5;
+    }
+    
+    /* Responsive design */
+    @media (max-width: 992px) {
+      .hero {
+        flex-direction: column;
+        padding: 40px 0;
+      }
+      
+      .hero-content, .form-container {
+        width: 100%;
+        padding-right: 0;
+      }
+      
+      .hero-content {
+        margin-bottom: 60px;
+        text-align: center;
+      }
+      
+      .hero-subtitle {
+        max-width: 100%;
+      }
+      
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .footer-content {
+        flex-direction: column;
+      }
+      
+      .footer-col {
+        margin-bottom: 40px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 48px;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .glass-card {
+        padding: 30px;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav class="nav">
+        <a href="#" class="logo">Klaviyo<span>Flow</span></a>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">Seamless <span>Klaviyo</span> Integration for Webflow</h1>
+        <p class="hero-subtitle">Connect your Webflow forms to Klaviyo in minutes with our elegant, powerful, and easy-to-use integration. Capture leads, grow your audience, and boost your marketing efforts.</p>
+      </div>
+      
+      <div class="form-container">
+        <div class="glass-card">
+          <h2 class="form-title">Join Our Community</h2>
+          <p class="form-subtitle">Subscribe to receive exclusive content, updates, and special offers.</p>
+          
+          <form id="subscription-form" data-klaviyo-form data-klaviyo-list-id="YOUR_LIST_ID" data-klaviyo-account-id="YOUR_PUBLIC_API_KEY">
+            <div class="form-group">
+              <label for="first-name" class="form-label">First Name</label>
+              <input type="text" id="first-name" name="first-name" class="form-input" placeholder="Your first name" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="last-name" class="form-label">Last Name</label>
+              <input type="text" id="last-name" name="last-name" class="form-input" placeholder="Your last name">
+            </div>
+            
+            <div class="form-group">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="Your email address" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number (Optional)</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="+1 (555) 555-5555">
+            </div>
+            
+            <button type="submit" class="btn">Subscribe Now</button>
+            
+            <div class="success-message w-form-done">
+              <h3>Thank you!</h3>
+              <p>Your subscription has been confirmed. You'll hear from us soon.</p>
+            </div>
+            
+            <div class="error-message w-form-fail">
+              <h3>Oops!</h3>
+              <p>Something went wrong while submitting the form. Please try again.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="features">
+    <div class="container">
+      <h2 class="features-title">Why Choose Our Integration</h2>
+      
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon">✨</div>
+          <h3 class="feature-title">Easy Setup</h3>
+          <p class="feature-text">Configure in minutes with simple data attributes and minimal code. No developer required.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">🔄</div>
+          <h3 class="feature-title">Real-time Sync</h3>
+          <p class="feature-text">Instantly send form submissions to your Klaviyo lists with seamless API integration.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">📱</div>
+          <h3 class="feature-title">SMS Support</h3>
+          <p class="feature-text">Collect phone numbers and subscribe users to SMS marketing campaigns with ease.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title">Custom Fields</h3>
+          <p class="feature-text">Map any form field to Klaviyo properties for detailed subscriber profiles.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">📊</div>
+          <h3 class="feature-title">Event Tracking</h3>
+          <p class="feature-text">Track form views and submissions in Klaviyo for comprehensive analytics.</p>
+        </div>
+        
+        <div class="feature-item">
+          <div class="feature-icon">🛡️</div>
+          <h3 class="feature-title">Error Handling</h3>
+          <p class="feature-text">Robust validation and error handling for a seamless user experience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <div class="footer-logo">Klaviyo<span>Flow</span></div>
+          <p class="footer-text">A powerful, flexible, and modular integration between Webflow forms and Klaviyo, with versioning support and robust error handling.</p>
+        </div>
+        
+        <div class="footer-col">
+          <h3 class="footer-links-title">Resources</h3>
+          <ul class="footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Examples</a></li>
+            <li><a href="#">GitHub Repository</a></li>
+            <li><a href="#">Change Log</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-col">
+          <h3 class="footer-links-title">Company</h3>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        &copy; 2023 KlaviyoFlow. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load the Klaviyo-Webflow integration script -->
+  <script src="/klaviyo-webflow.min.js"></script>
+  
+  <!-- Initialize the integration -->
+  <script>
+    // Replace with your actual API key and list ID for testing
+    window.initKlaviyoWebflow({
+      publicApiKey: 'YOUR_PUBLIC_API_KEY',
+      defaultConfig: {
+        debug: true
+      }
+    });
+  </script>
+</body>
+</html> 

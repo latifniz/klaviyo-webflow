@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Klaviyo to Webflow Integration</title>
+    <meta name="description" content="Comprehensive documentation for the Klaviyo to Webflow integration script. Learn how to collect form data and send it to your Klaviyo list.">
+    <link rel="stylesheet" href="public/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3088801953.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-primary">Klaviyo</span><span class="logo-separator">→</span><span class="logo-secondary">Webflow</span>
+                </a>
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="documentation.html" class="active">Documentation</a></li>
+                        <li><a href="playground.html">Playground</a></li>
+                    </ul>
+                </nav>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="docs">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h1 class="section-title">Documentation</h1>
+                    <p class="section-subtitle">Everything you need to know about integrating Klaviyo with your Webflow site</p>
+                </div>
+
+                <div class="docs-container">
+                    <aside class="docs-sidebar">
+                        <nav class="docs-nav">
+                            <h3 class="docs-nav-title">Contents</h3>
+                            <ul class="docs-nav-list">
+                                <li><a href="#getting-started">Getting Started</a>
+                                    <ul class="docs-nav-sublist">
+                                        <li><a href="#installation">Installation</a></li>
+                                        <li><a href="#configuration">Configuration</a></li>
+                                        <li><a href="#basic-usage">Basic Usage</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#form-setup">Form Setup</a>
+                                    <ul class="docs-nav-sublist">
+                                        <li><a href="#form-attributes">Form Attributes</a></li>
+                                        <li><a href="#field-mapping">Field Mapping</a></li>
+                                        <li><a href="#custom-fields">Custom Fields</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#advanced-usage">Advanced Usage</a>
+                                    <ul class="docs-nav-sublist">
+                                        <li><a href="#validation">Form Validation</a></li>
+                                        <li><a href="#events">Events & Callbacks</a></li>
+                                        <li><a href="#error-handling">Error Handling</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#api-reference">API Reference</a>
+                                    <ul class="docs-nav-sublist">
+                                        <li><a href="#api-methods">Methods</a></li>
+                                        <li><a href="#api-options">Options</a></li>
+                                        <li><a href="#api-events">Events</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#troubleshooting">Troubleshooting</a>
+                                    <ul class="docs-nav-sublist">
+                                        <li><a href="#common-issues">Common Issues</a></li>
+                                        <li><a href="#faq">FAQ</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </aside>
+
+                    <div class="docs-content">
+                        <section id="getting-started" class="docs-section">
+                            <h2 class="docs-section-title">Getting Started</h2>
+                            
+                            <div id="installation" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Installation</h3>
+                                <p>There are two ways to install the Klaviyo to Webflow integration script:</p>
+                                
+                                <h4>Option 1: Direct Script Inclusion</h4>
+                                <p>Add the following script tag to your site's custom code section in Webflow just before the closing <code>&lt;/body&gt;</code> tag:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;script src="https://klaviyo-webflow.example.com/klaviyo-webflow.min.js"&gt;&lt;/script&gt;</code></pre>
+                                </div>
+                                
+                                <h4>Option 2: Self-hosting</h4>
+                                <p>Download the script and include it in your project:</p>
+                                <ol>
+                                    <li>Download <a href="#" class="link">klaviyo-webflow.min.js</a></li>
+                                    <li>Upload it to your Webflow project via the Assets panel</li>
+                                    <li>Include it in your site's custom code section</li>
+                                </ol>
+                            </div>
+                            
+                            <div id="configuration" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Configuration</h3>
+                                <p>After adding the script, initialize it with your Klaviyo account details:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;script&gt;
+  document.addEventListener('DOMContentLoaded', function() {
+    KlaviyoWebflow.init({
+      apiKey: 'YOUR_KLAVIYO_PRIVATE_API_KEY',
+      listId: 'YOUR_KLAVIYO_LIST_ID',
+      debug: false // Set to true during development
+    });
+  });
+&lt;/script&gt;</code></pre>
+                                </div>
+                                
+                                <p>Replace <code>YOUR_KLAVIYO_PRIVATE_API_KEY</code> and <code>YOUR_KLAVIYO_LIST_ID</code> with your actual Klaviyo credentials. You can find these in your Klaviyo account settings.</p>
+                                
+                                <div class="alert alert-warning">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <div>
+                                        <strong>Important:</strong> Never expose your Private API Key in client-side code for production sites. Use the playground to generate server-side implementation code.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="basic-usage" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Basic Usage</h3>
+                                <p>To connect a Webflow form to Klaviyo, add the <code>data-klaviyo-form</code> attribute to your form element:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;form data-klaviyo-form&gt;
+  &lt;input type="email" name="email" placeholder="Your email" required&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                                </div>
+                                
+                                <p>When a user submits this form, the email will be sent to your specified Klaviyo list. At minimum, you need an email field for the form to work with Klaviyo.</p>
+                            </div>
+                        </section>
+
+                        <section id="form-setup" class="docs-section">
+                            <h2 class="docs-section-title">Form Setup</h2>
+                            
+                            <div id="form-attributes" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Form Attributes</h3>
+                                <p>Use these attributes to customize the behavior of your Klaviyo-connected forms:</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Attribute</th>
+                                            <th>Description</th>
+                                            <th>Default</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>data-klaviyo-form</code></td>
+                                            <td>Marks a form to be processed by the Klaviyo integration</td>
+                                            <td>Required</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-klaviyo-list-id</code></td>
+                                            <td>Override the default list ID for this specific form</td>
+                                            <td>Global listId from init()</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-klaviyo-success-url</code></td>
+                                            <td>URL to redirect to after successful submission</td>
+                                            <td>None (stays on same page)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>data-klaviyo-success-message</code></td>
+                                            <td>Message to display after successful submission</td>
+                                            <td>"Thank you for subscribing!"</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div id="field-mapping" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Field Mapping</h3>
+                                <p>The script automatically maps common field names to Klaviyo properties. Use these names for your form inputs to ensure proper mapping:</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Input Name</th>
+                                            <th>Klaviyo Property</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>email</code></td>
+                                            <td>$email</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>first_name</code>, <code>firstname</code></td>
+                                            <td>$first_name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>last_name</code>, <code>lastname</code></td>
+                                            <td>$last_name</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>phone</code>, <code>phone_number</code></td>
+                                            <td>$phone_number</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>address</code></td>
+                                            <td>$address1</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>city</code></td>
+                                            <td>$city</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>state</code>, <code>region</code></td>
+                                            <td>$region</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>zip</code>, <code>postal_code</code></td>
+                                            <td>$zip</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>country</code></td>
+                                            <td>$country</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div id="custom-fields" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Custom Fields</h3>
+                                <p>For custom fields, use the <code>data-klaviyo-field</code> attribute to specify the Klaviyo property name:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;input type="text" name="favorite_color" data-klaviyo-field="Favorite Color"&gt;</code></pre>
+                                </div>
+                                
+                                <p>You can also use the <code>data-klaviyo-custom-properties</code> attribute on the form to add properties that aren't in the form:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;form data-klaviyo-form 
+      data-klaviyo-custom-properties='{"Source": "Newsletter Popup", "Campaign": "Summer2023"}'&gt;
+  &lt;!-- Form fields --&gt;
+&lt;/form&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="advanced-usage" class="docs-section">
+                            <h2 class="docs-section-title">Advanced Usage</h2>
+                            
+                            <div id="validation" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Form Validation</h3>
+                                <p>The script respects HTML5 form validation attributes like <code>required</code>, <code>pattern</code>, and <code>type</code>. You can also add custom validation:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;script&gt;
+  KlaviyoWebflow.init({
+    // ... your config
+    customValidation: function(formData, form) {
+      // Return true if valid, false if invalid
+      const email = formData.get('email');
+      if (email && email.indexOf('example.com') !== -1) {
+        alert('Please use a non-example email');
+        return false;
+      }
+      return true;
+    }
+  });
+&lt;/script&gt;</code></pre>
+                                </div>
+                                
+                                <p>For phone number validation, add the <code>data-klaviyo-validate-phone</code> attribute:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;input type="tel" name="phone" data-klaviyo-validate-phone required&gt;</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div id="events" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Events & Callbacks</h3>
+                                <p>The script emits events you can listen for:</p>
+                                <div class="docs-code">
+                                    <pre><code>document.addEventListener('klaviyoWebflow:beforeSubmit', function(e) {
+  // Access the form and form data
+  const form = e.detail.form;
+  const formData = e.detail.formData;
+  
+  // Prevent submission by calling preventDefault()
+  // e.preventDefault();
+});
+
+document.addEventListener('klaviyoWebflow:success', function(e) {
+  // Successful submission
+  console.log('Profile added to Klaviyo!', e.detail.response);
+});
+
+document.addEventListener('klaviyoWebflow:error', function(e) {
+  // Handle error
+  console.error('Klaviyo submission error:', e.detail.error);
+});</code></pre>
+                                </div>
+                            </div>
+                            
+                            <div id="error-handling" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Error Handling</h3>
+                                <p>Customize error handling behavior:</p>
+                                <div class="docs-code">
+                                    <pre><code>KlaviyoWebflow.init({
+  // ... your config
+  onError: function(error, form) {
+    // Custom error handling
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'error-message';
+    errorMsg.textContent = 'Submission failed: ' + error.message;
+    form.appendChild(errorMsg);
+  }
+});</code></pre>
+                                </div>
+                                
+                                <p>You can also add a specific element to display errors:</p>
+                                <div class="docs-code">
+                                    <pre><code>&lt;form data-klaviyo-form&gt;
+  &lt;!-- Form fields --&gt;
+  &lt;div data-klaviyo-error-message&gt;&lt;/div&gt;
+  &lt;button type="submit"&gt;Subscribe&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section id="api-reference" class="docs-section">
+                            <h2 class="docs-section-title">API Reference</h2>
+                            
+                            <div id="api-methods" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Methods</h3>
+                                <p>The Klaviyo Webflow integration exposes these methods:</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Method</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>KlaviyoWebflow.init(options)</code></td>
+                                            <td>Initialize the integration with the provided options</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>KlaviyoWebflow.submitForm(form, formData)</code></td>
+                                            <td>Manually submit a form to Klaviyo</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>KlaviyoWebflow.addToList(profileData, listId)</code></td>
+                                            <td>Add a profile to a Klaviyo list directly</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>KlaviyoWebflow.trackEvent(eventName, customerProperties, eventProperties)</code></td>
+                                            <td>Track a custom event in Klaviyo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div id="api-options" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Options</h3>
+                                <p>The <code>init()</code> method accepts these configuration options:</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Option</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Default</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>apiKey</code></td>
+                                            <td>String</td>
+                                            <td>Your Klaviyo Private API Key</td>
+                                            <td>Required</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>listId</code></td>
+                                            <td>String</td>
+                                            <td>Default Klaviyo List ID</td>
+                                            <td>Required</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>debug</code></td>
+                                            <td>Boolean</td>
+                                            <td>Enable debug mode with console logging</td>
+                                            <td><code>false</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>successMessage</code></td>
+                                            <td>String</td>
+                                            <td>Default success message</td>
+                                            <td>"Thank you for subscribing!"</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>errorMessage</code></td>
+                                            <td>String</td>
+                                            <td>Default error message</td>
+                                            <td>"There was an error. Please try again."</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>onSuccess</code></td>
+                                            <td>Function</td>
+                                            <td>Success callback function</td>
+                                            <td>null</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>onError</code></td>
+                                            <td>Function</td>
+                                            <td>Error callback function</td>
+                                            <td>null</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>customValidation</code></td>
+                                            <td>Function</td>
+                                            <td>Custom validation function</td>
+                                            <td>null</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div id="api-events" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Events</h3>
+                                <p>The integration emits these events:</p>
+                                
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Event Name</th>
+                                            <th>Description</th>
+                                            <th>Event Detail</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>klaviyoWebflow:init</code></td>
+                                            <td>Fired when the integration is initialized</td>
+                                            <td><code>{ options }</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>klaviyoWebflow:beforeSubmit</code></td>
+                                            <td>Fired before form submission</td>
+                                            <td><code>{ form, formData }</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>klaviyoWebflow:success</code></td>
+                                            <td>Fired after successful submission</td>
+                                            <td><code>{ form, response }</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>klaviyoWebflow:error</code></td>
+                                            <td>Fired when an error occurs</td>
+                                            <td><code>{ form, error }</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>klaviyoWebflow:validationError</code></td>
+                                            <td>Fired when validation fails</td>
+                                            <td><code>{ form, errors }</code></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+
+                        <section id="troubleshooting" class="docs-section">
+                            <h2 class="docs-section-title">Troubleshooting</h2>
+                            
+                            <div id="common-issues" class="docs-subsection">
+                                <h3 class="docs-subsection-title">Common Issues</h3>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Form submissions not reaching Klaviyo</h4>
+                                    <p>Check the following:</p>
+                                    <ol>
+                                        <li>Verify your API key and list ID are correct</li>
+                                        <li>Ensure your form has the <code>data-klaviyo-form</code> attribute</li>
+                                        <li>Check browser console for any JavaScript errors</li>
+                                        <li>Make sure your form has at least an email field</li>
+                                        <li>Try enabling debug mode to see detailed logs: <code>debug: true</code></li>
+                                    </ol>
+                                </div>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Field values not appearing in Klaviyo</h4>
+                                    <p>Ensure field names match the expected mapping (see Field Mapping section) or use the <code>data-klaviyo-field</code> attribute to specify custom mappings.</p>
+                                </div>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Form submits, but no success message appears</h4>
+                                    <p>Add a success message element with the attribute <code>data-klaviyo-success-message</code> to your form, or specify a <code>successMessage</code> in your configuration.</p>
+                                </div>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Phone number validation issues</h4>
+                                    <p>The script includes basic phone validation. Make sure phone numbers include the country code. For custom validation, implement a <code>customValidation</code> function.</p>
+                                </div>
+                            </div>
+                            
+                            <div id="faq" class="docs-subsection">
+                                <h3 class="docs-subsection-title">FAQ</h3>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Can I use this with multiple Klaviyo lists?</h4>
+                                    <p>Yes, you can specify different list IDs for different forms using the <code>data-klaviyo-list-id</code> attribute.</p>
+                                </div>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Does this work with Webflow's native form handling?</h4>
+                                    <p>Yes, the script prevents the default form submission and handles the data to both Webflow and Klaviyo seamlessly. You can disable this with <code>data-klaviyo-disable-webflow-submit="true"</code>.</p>
+                                </div>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>Is user consent for marketing handled automatically?</h4>
+                                    <p>The script does not automatically handle consent. Add a checkbox with name "consent" or use the <code>data-klaviyo-field="Accepts Marketing"</code> attribute to capture consent.</p>
+                                </div>
+                                
+                                <div class="docs-faq-item">
+                                    <h4>How do I track form conversions with Google Analytics?</h4>
+                                    <p>Use the <code>klaviyoWebflow:success</code> event to trigger your Google Analytics event:</p>
+                                    <div class="docs-code">
+                                        <pre><code>document.addEventListener('klaviyoWebflow:success', function(e) {
+  // Google Analytics 4 event
+  gtag('event', 'form_submission', {
+    'form_name': e.detail.form.getAttribute('name') || 'Klaviyo Form'
+  });
+});</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-primary">Klaviyo</span><span class="logo-separator">→</span><span class="logo-secondary">Webflow</span>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h3 class="footer-heading">Navigation</h3>
+                        <ul class="footer-nav">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="documentation.html">Documentation</a></li>
+                            <li><a href="playground.html">Playground</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3 class="footer-heading">Resources</h3>
+                        <ul class="footer-nav">
+                            <li><a href="https://www.klaviyo.com/help" target="_blank">Klaviyo Help Center</a></li>
+                            <li><a href="https://university.webflow.com/" target="_blank">Webflow University</a></li>
+                            <li><a href="#" target="_blank">GitHub Repository</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h3 class="footer-heading">Contact</h3>
+                        <ul class="footer-nav">
+                            <li><a href="mailto:support@example.com">support@example.com</a></li>
+                            <li><a href="https://twitter.com/example" target="_blank">Twitter</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2023 Klaviyo to Webflow Integration. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
+            document.querySelector('.main-nav').classList.toggle('show');
+            this.classList.toggle('active');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update URL without scrolling
+                    history.pushState(null, null, targetId);
+                }
+            });
+        });
+        
+        // Highlight active navigation based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.docs-section, .docs-subsection');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                
+                if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            if (currentSection) {
+                document.querySelectorAll('.docs-nav-list a, .docs-nav-sublist a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 
