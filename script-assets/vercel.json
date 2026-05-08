@@ -22,7 +22,7 @@
   "routes": [
     {
       "src": "/klaviyo-webflow.min.js",
-      "dest": "/public/klaviyo-webflow.min.js",
+      "dest": "/dist/latest/klaviyo-webflow.min.js",
       "headers": {
         "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
         "Access-Control-Allow-Origin": "*",
